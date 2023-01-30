@@ -1,0 +1,31 @@
+.filled, .outlined {
+  border: 2px solid #FCBA03;
+  padding: 10px 25px;
+  border-radius: 8px;
+
+  height: fit-content;
+
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.filled {
+  background-color: rgba(252, 186, 3, 0.2);
+  color: #FFF;
+
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filled:hover {
+  background-color: rgba(252, 186, 3, 0.4);
+}
+
+.outlined {
+  color: #FCBA03;
+  transition: background-color 0.2s, color 0.2s ease-in-out;
+}
+
+.outlined:hover {
+  color: #FFF;
+  background-color: #FCBA03;
+}

@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import RouletteRoute from "./routes/RouletteRoute/RouletteRoute";
+import RouteWrapper from "./routes/RouteWrapper/RouteWrapper";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RouletteRoute />,
+  },
+  {
+    path: "/1",
+    element: <div>Casino Route</div>
+  }
+]);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouteWrapper>
+      <RouterProvider router={router} />
+    </RouteWrapper>
   );
 }
 

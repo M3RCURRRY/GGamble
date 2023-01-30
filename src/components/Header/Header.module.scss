@@ -1,0 +1,84 @@
+@import "./../../theme.scss";
+
+.container {
+  width: 100%;
+  background-color: $base;
+  color: #FCBA03;
+
+  justify-content: space-between;
+}
+
+.container, .navbar, .authbar, .socials {
+  display: flex;
+  flex-direction: row;
+}
+
+.authbar {
+  align-items: center;
+  padding-right: 30px;
+}
+
+.socials {
+  margin-right: 30px;
+}
+
+.socials img {
+  width: 26px;
+  height: auto;
+  margin-right: 16px;
+  filter: invert(50%);
+  -webkit-filter: invert(50%);
+
+  transition: filter 0.15s ease-in-out;
+}
+
+.socials img:hover {
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+
+h1 {
+  font-size: 36px;
+  margin: 20px 12px;
+  font-weight: 500;
+  font-family: PTNarrowBold;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+nav, ul, li {
+  max-height: 100%;
+}
+
+ul, li {
+  height: 100%;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+}
+
+li {
+  display: flex;
+  align-items: center;
+
+  height: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  color: $primary;
+  margin: 0px 16px;
+
+  margin-bottom: -1px;
+  box-sizing: border-box;
+  
+  transition: all 0.2s ease-in-out;
+}
+
+li:hover {
+  color: #FCBA03;
+}
