@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   background-color: $base;
-  color: #FCBA03;
+  color: $active;
 
   justify-content: space-between;
 }
@@ -80,5 +80,5 @@ li {
 }
 
 li:hover {
-  color: #FCBA03;
+  color: $active;
 }
