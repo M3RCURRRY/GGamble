@@ -5,7 +5,7 @@ import RouteWrapper from "./routes/RouteWrapper/RouteWrapper";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RouletteRoute />,
+    element: <RouletteRoute />
   },
   {
     path: "/1",
