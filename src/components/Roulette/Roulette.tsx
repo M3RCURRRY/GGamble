@@ -1,21 +1,82 @@
+import { useState } from "react";
+import { ButtonTypes, ColorPositionTypes, IBetUser, TextInputTypes } from "../../types";
+import Button from "../Button/Button";
+import ColorPosition from "../ColorPosition/ColorPosition";
+import TextInput from "../TextInput/TextInput";
 import styles from "./Roulette.module.scss";
 
 const MOCK_LATEST = [1, 3, 3, 11, 5, 0, 6, 8, 9, 13];
 
+const MOCK_RED_USERS: IBetUser[] = [
+  {
+    username: "User1",
+    bet: "567"
+  },
+  {
+    username: "NewUser",
+    bet: "1999"
+  },
+  {
+    username: "Dolbaeb",
+    bet: "10"
+  },
+  {
+    username: "Ludoman",
+    bet: "66",
+  },
+  {
+    username: "Aboba",
+    bet: "400"
+  }
+]
+
+const MOCK_GREEN_USERS: IBetUser[] = [
+  {
+    username: "User1111",
+    bet: "55"
+  },
+  {
+    username: "Clown",
+    bet: "10"
+  },
+  {
+    username: "RichMan",
+    bet: "100"
+  }
+]
+
+const MOCK_BLACK_USERS: IBetUser[] = [
+  {
+    username: "BlackUser",
+    bet: "550"
+  },
+  {
+    username: "Nigger",
+    bet: "10000"
+  },
+  {
+    username: "Obama",
+    bet: "735"
+  }
+]
+
 export default function Roulette() {
+
+  const [value, setValue] = useState<string>("");
+
   const random = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min) + min);
   };
-
+ 
   const rotate = () => {
     const el = document.getElementById("roulette");
     if (el) {
       console.log(el.style.transition);
-      const offset = `-${random(2000, 4400)}px`;
+      const offset = `-${random(8, 17) * 92}px`;
 
       if (parseInt(el.style.backgroundPosition) < 0)
         el.style.backgroundPosition = "0px";
-      else el.style.backgroundPosition = "-92px";
+      else el.style.backgroundPosition = `-${random(8, 17) * 92}px`;
     }
   };
 
@@ -41,9 +102,22 @@ export default function Roulette() {
             <span className={styles.bal}>4933285</span>
           </div>
           <div className={styles.controls}>
-            
+            <TextInput initValue={value} type={TextInputTypes.NUMBER} onChange={setValue} placeholder="Your bet ammount ..."/>
+            <div className={styles.betControls}>
+              <Button content="Reset" onClick={() => setValue("")} type={ButtonTypes.OUTLINED}/>
+              <Button content="+100" onClick={() => setValue((+value + 100) + "")} type={ButtonTypes.OUTLINED}/>
+              <Button content="+500" onClick={() => setValue((+value + 500) + "")} type={ButtonTypes.OUTLINED}/>
+              <Button content="+1000" onClick={() => setValue((+value + 1000) + "")} type={ButtonTypes.OUTLINED}/>
+              <Button content="1/2" onClick={() => setValue(Math.floor((+value / 2)) + "")} type={ButtonTypes.OUTLINED}/>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div className={styles.posContainer}>
+        <ColorPosition type={ColorPositionTypes.RED} betsData={MOCK_RED_USERS}/>
+        <ColorPosition type={ColorPositionTypes.GREEN} betsData={MOCK_GREEN_USERS}/>
+        <ColorPosition type={ColorPositionTypes.BLACK} betsData={MOCK_BLACK_USERS}/>
       </div>
       <button onClick={rotate}>Rotate</button>
     </div>
