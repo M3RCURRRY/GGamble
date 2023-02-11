@@ -1,0 +1,152 @@
+@import "./../../theme.scss";
+
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: $primary;
+}
+
+.wrapper {
+  width: fit-content;
+  height: fit-content;
+  padding: 14px;
+
+  border-radius: 8px;
+
+  background-color: $base;
+}
+
+.roulette {
+  height: 92px;
+  width: 1380px;
+  position: relative;
+
+  border-radius: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url("./../../assets/resources/nums.png");
+  background-repeat: repeat-x;
+  background-position: 0px 0px;
+
+  transition: background-position 1s ease-in-out;
+}
+
+.marker {
+  width: 4px;
+  height: 100%;
+  background-color: #fff;
+}
+
+.counter {
+  height: 22px;
+  width: 1380px;
+  border-radius: 8px;
+
+  text-align: center;
+  font-weight: 500;
+
+  margin-bottom: 12px;
+
+  background: rgb(255,255,255);
+  background: linear-gradient(270deg, $hover 59%, $active 59%);
+}
+
+.latestRolls {
+  width: 100%;
+  margin: 20px auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.number {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.red {
+  background-color: #DB796F;
+
+  &:hover {
+    background-color: #CC4233;
+  }
+}
+
+.black {
+  background-color: #5F5F5F;
+
+  &:hover {
+    background-color: #404040;
+  }
+}
+
+.green {
+  background-color: #7DC48A;
+
+  &:hover {
+    background-color: #4FB061;
+  }
+}
+
+.latestRolls > div {
+  margin: 5px;
+}
+
+.balancePanel {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.bal {
+  font-weight: 500;
+  color: $active;
+}
+
+.balance {
+  min-width: 200px;
+  width: fit-content;
+  border: 2px solid #404040;
+  color: $secondary;
+  border-radius: 8px;
+  padding: 14px;
+
+  font-size: 1.05rem;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.controls {
+  width: 100%;
+  margin-left: 5px;
+  border-radius: 8px;
+  background-color: $optional;
+}
