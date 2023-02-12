@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RouletteRoute from "./routes/RouletteRoute/RouletteRoute";
 import RouteWrapper from "./routes/RouteWrapper/RouteWrapper";
 

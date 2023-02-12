@@ -10,7 +10,9 @@ const RouteWrapper = (props: RouteProps) => {
   return (
     <div className={styles.wrapper}>
       <Header />
-      { props.children }
+      <div className={styles.padding}>
+        { props.children }
+      </div>
     </div>
   );
 };

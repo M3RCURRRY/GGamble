@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ButtonTypes, ColorPositionTypes, IBetUser, TextInputTypes } from "../../types";
 import Button from "../Button/Button";
 import ColorPosition from "../ColorPosition/ColorPosition";
@@ -61,8 +61,29 @@ const MOCK_BLACK_USERS: IBetUser[] = [
 ]
 
 export default function Roulette() {
-
   const [value, setValue] = useState<string>("");
+  const [time, setTime] = useState<number>(10);
+
+  const timeRef = useRef(time);
+  timeRef.current = time;
+
+  let timer!: NodeJS.Timer;
+
+  useEffect(() => {
+    timer = setInterval(() => {
+      const timeline = document.getElementById('timeline') as HTMLElement;
+      if (timeRef.current <= 0) {
+        setTime(10);
+      }
+      else setTime(timeRef.current - 1);
+      //timeline.style.background = `linear-gradient(270deg, #3B3B41 ${100 - (10 * timeRef.current)}%, #FCBA03 ${100 - (10 * timeRef.current)}%)`;
+      // timeline.style.background = `red`;
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    }
+  }, [])
 
   const random = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min) + min);
@@ -83,7 +104,7 @@ export default function Roulette() {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <div className={styles.counter}>Second before roll ... </div>
+        <div className={styles.counter} id="timeline">{time} second before roll ... </div>
         <div className={styles.roulette} id="roulette">
           <div className={styles.marker}></div>
         </div>
