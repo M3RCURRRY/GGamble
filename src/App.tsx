@@ -1,23 +1,24 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RouletteRoute from "./routes/RouletteRoute/RouletteRoute";
-import RouteWrapper from "./routes/RouteWrapper/RouteWrapper";
+import PageWrapper from "./pages/PageWrapper/PageWrapper";
+import RoulettePage from "./pages/RoulettePage/RoulettePage";
+import SlotsPage from "./pages/SlotsPage/SlotsPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RouletteRoute />
+    element: <RoulettePage />
   },
   {
-    path: "/1",
-    element: <div>Casino Route</div>
+    path: "/slots",
+    element: <SlotsPage />
   }
 ]);
 
 function App() {
   return (
-    <RouteWrapper>
+    <PageWrapper>
       <RouterProvider router={router} />
-    </RouteWrapper>
+    </PageWrapper>
   );
 }
 
