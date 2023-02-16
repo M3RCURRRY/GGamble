@@ -1,5 +1,5 @@
 import { ButtonTypes, ColorPositionTypes, IBetUser } from "../../types";
-import Button from "../Button/Button";
+import Button from "../../ui/Button/Button";
 
 import user from "./../../assets/logos/user.png";
 

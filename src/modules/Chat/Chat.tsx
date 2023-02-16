@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ButtonTypes } from "../../types";
-import Button from "../Button/Button";
+import Button from "../../ui/Button/Button";
 import styles from "./Chat.module.scss";
 
 interface IChatMessage {

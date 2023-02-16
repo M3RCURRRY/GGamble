@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ButtonTypes, ColorPositionTypes, IBetUser, TextInputTypes } from "../../types";
-import Button from "../Button/Button";
+import Button from "../../ui/Button/Button";
+import TextInput from "../../ui/TextInput/TextInput";
 import ColorPosition from "../ColorPosition/ColorPosition";
-import TextInput from "../TextInput/TextInput";
 import styles from "./Roulette.module.scss";
 
 const MOCK_LATEST = [1, 3, 3, 11, 5, 0, 6, 8, 9, 13];

@@ -1,12 +1,11 @@
-import Header from "../../components/Header/Header";
-
-import styles from "./RouteWrapper.module.scss";
+import Header from "../../modules/Header/Header";
+import styles from "./PageWrapper.module.scss";
 
 interface RouteProps {
   children?: JSX.Element | React.ReactNode;
 }
 
-const RouteWrapper = (props: RouteProps) => {
+const PageWrapper = (props: RouteProps) => {
   return (
     <div className={styles.wrapper}>
       <Header />
@@ -17,4 +16,4 @@ const RouteWrapper = (props: RouteProps) => {
   );
 };
 
-export default RouteWrapper;
+export default PageWrapper;
