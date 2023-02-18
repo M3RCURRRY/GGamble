@@ -2,12 +2,14 @@
 
 .container {
   width: 100%;
-  position: fixed;
 
   background-color: $base;
   color: $active;
 
   justify-content: space-between;
+
+  z-index: 1;
+  margin-bottom: 10px;
 }
 
 .container, .navbar, .authbar, .socials {
