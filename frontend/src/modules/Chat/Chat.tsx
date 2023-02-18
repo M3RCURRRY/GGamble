@@ -110,7 +110,7 @@ const Chat = () => {
         )}
       </div>
       <div className={styles.chatMessages}>
-        {MOCK_CHAT.concat(MOCK_CHAT).map((value) => {
+        {MOCK_CHAT.map((value) => {
           return (
             <div key={value.userId + "_" + value.date} className={styles.messageContainer}>
               <div className={styles.messageStats}>
