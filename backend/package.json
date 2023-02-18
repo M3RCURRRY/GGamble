@@ -1,0 +1,17 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "M3RCURRRY",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.12.1"
+  },
+  "optionalDependencies": {
+    "utf-8-validate": "^6.0.2"
+  }
+}
