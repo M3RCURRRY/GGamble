@@ -1,72 +1,147 @@
-const ws = require("ws");
 const express = require("express");
+const uuid = require("node-uuid");
+const ws = require("ws");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const admin = require("firebase-admin");
+const http = require("http");
+
+const config = require("./config");
+const credentials = require("./key.json");
+const userRoutes = require('./routes/user-routes');
+
+// *********
+//  Server init
+// *********
+
 const app = express();
+app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 
-const wss = new ws.Server({ port: 9000 }, () =>
-  console.log("Server started on 9000")
-);
+app.use('/api', userRoutes.routes);
 
-const roulette_clients = [];
-const slots_clients = [];
-const betting_clients = [];
+const server = http.createServer(app);
+const wss = new ws.Server({ server });
 
-const all_clients = [];
+// *********
+//  Firebase init
+// *********
+
+// Format - UUID : WebSocketClient
+const rouletteClients = new Map();
+const slotsClients = new Map();
+const betsClients = new Map();
+const onlyChatClient = new Map();
+
+const allClients = new Map();
+
+// All available routes
+const ROUTES = {
+  ROULETTE: "ROULETTE",
+  SLOTS: "SLOTS",
+  BETS: "BETS",
+  ONLYCHAT: "ONLYCHAT",
+};
+
+const ACTIONS = {
+  HANDSHAKE: "HANDSHAKE",
+  SWITCH: "SWITCH",
+};
 
 wss.on("connection", (wsClient) => {
-  wsClient.send("User connected");
-  all_clients.push(wsClient);
+  wsClient.id = uuid.v4();
+  allClients.set(wsClient.id, wsClient);
 
-  const messageHandler = (msg) => {
-
+  const messageHandler = (wsc, msg) => {
     const jsonMsg = JSON.parse(msg);
 
     switch (jsonMsg.action) {
-      case "HANDSHAKE":
-
-        console.log(jsonMsg.data);
-
-        if (jsonMsg.data === "ROULETTE") {
-          roulette_clients.push(wsClient);
-          wsClient.send("Connected to roulette");
-          break;
-        }
-        
-        if (jsonMsg.data === "SLOTS") {
-          slots_clients.push(wsClient);
-          wsClient.send("Connected to slots");
+      case ACTIONS.HANDSHAKE:
+        if (jsonMsg.data === ROUTES.ROULETTE) {
+          rouletteClients.set(wsc.id, wsc);
+          wsc.send(`Connected to ${ROUTES.ROULETTE}`);
           break;
         }
 
-        console.log("No Handler");
-        
+        if (jsonMsg.data === ROUTES.SLOTS) {
+          slotsClients.set(wsc.id, wsc);
+          wsc.send(`Connected to ${ROUTES.ROULETTE}`);
+          break;
+        }
+
+        wsc.send("This route does not exist to connect");
         break;
-      case "ECHO":
-        wsClient.send(jsonMsg.data);
-        break;
-      case "PING":
-        setTimeout(() => {
-          wsClient.send("PONG")
-        }, 2000);
+
+      case ACTIONS.SWITCH:
+        if (!Object.keys(ROUTES).has(jsonMsg.data)) {
+          wsc.send("This route does not exist to switch");
+          break;
+        }
+
+        if (rouletteClients.has(wsc.id) && jsonMsg.data !== ROUTES.ROULETTE) {
+          rouletteClients.delete(wsc.id);
+          switch (jsonMsg.data) {
+            case ROUTES.SLOTS:
+              slotsClients.set(wsc.id, wsc);
+              wsc.send(`Switched to ${jsonMsg.data}`);
+              break;
+            default:
+              break;
+          }
+          break;
+        }
+
+        if (slotsClients.has(wsc.id) && jsonMsg.data !== ROUTES.SLOTS) {
+          slotsClients.delete(wsc.id);
+          switch (jsonMsg.data) {
+            case ROUTES.ROULETTE:
+              rouletteClients.set(wsc.id, wsc);
+              wsc.send(`Switched to ${jsonMsg.data}`);
+              break;
+            default:
+              break;
+          }
+          break;
+        }
+
         break;
       default:
-        wsClient.send("Unknown action");
+        wsc.send("Unknown action");
         break;
     }
-  }
+  };
 
-  wsClient.on("message", messageHandler);
+  wsClient.on("message", function (msg) {
+    messageHandler(wsClient, msg);
+  });
 
   wsClient.on("close", function () {
     console.log("User disconnected");
   });
 });
 
-setInterval(() => {
-  console.log("Roll started");
-  for (let client of roulette_clients) {
-    client.send("ROLL");
-  }
-}, 5000);
+// *********
+//  Server startup
+// *********
+
+server.listen(config.port, () => console.log("Server started"));
+
+// Roulette service
+
+// Chat service
+
+// Bets service
+
+//
+
+// setInterval(() => {
+//   console.log("Roll started");
+//   for (let client of roulette_clients) {
+//     client.send("ROLL");
+//     console.log(client.id);
+//   }
+// }, 5000);
 
 // function onConnect(wsClient) {
 //   wsClient.send("User connected");
